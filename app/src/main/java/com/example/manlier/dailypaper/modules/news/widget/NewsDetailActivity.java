@@ -3,6 +3,7 @@ package com.example.manlier.dailypaper.modules.news.widget;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -71,9 +72,13 @@ public class NewsDetailActivity extends MySwipeBackActivity
 
         setSupportActionBar(toolbar);
 
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        }
 
         // 设置左上角是否有返回图标
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         swipeBackLayout = getSwipeBackLayout();

@@ -38,7 +38,7 @@ public class NewsPresenterImpl implements
 
         // 如果页面中没有任何数据，显示刷新部件
         if (page == 0)
-            newsView.showLoading();
+            newsView.showRefreshing();
         newsModel.loadNews(url, type, this);
     }
 
@@ -50,43 +50,13 @@ public class NewsPresenterImpl implements
         Collections.sort(list, (o1, o2) -> o2.getPtime().compareTo(o1.getPtime()));
 
         // 一旦加载完成，隐藏刷新部件
-        newsView.hideLoading();
+        newsView.hideRefreshing();
         newsView.addNews(list);
     }
 
     @Override
     public void onFailure(String msg, Exception e) {
-        newsView.hideLoading();
+        newsView.hideRefreshing();
         newsView.showLoadFailMsg();
     }
-
-//    /**
-//     * 根据类别和页面索引创建url
-//     *
-//     * @param type 新闻类别
-//     * @param pageIndex 页面索引
-//     * @return 构件好的url
-//     */
-//    private String getUrl(int type, int pageIndex) {
-//        StringBuffer sb = new StringBuffer();
-//        switch (type) {
-//            case NewsFragment.NEWS_TYPE_TOP:
-//                sb.append(API.TOP_URL).append(API.TOP_ID);
-//                break;
-//            case NewsFragment.NEWS_TYPE_NBA:
-//                sb.append(API.COMMON_URL).append(API.NBA_ID);
-//                break;
-//            case NewsFragment.NEWS_TYPE_CARS:
-//                sb.append(API.COMMON_URL).append(API.CAR_ID);
-//                break;
-//            case NewsFragment.NEWS_TYPE_JOKES:
-//                sb.append(API.COMMON_URL).append(API.JOKE_ID);
-//                break;
-//            default:
-//                sb.append(API.TOP_URL).append(API.TOP_ID);
-//                break;
-//        }
-//        sb.append("/").append(pageIndex).append(API.END_URL);
-//        return sb.toString();
-//    }
 }

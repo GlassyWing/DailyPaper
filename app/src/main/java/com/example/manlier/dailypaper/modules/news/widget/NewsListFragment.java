@@ -19,6 +19,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.manlier.dailypaper.R;
 import com.example.manlier.dailypaper.beans.NewsBean;
@@ -57,6 +58,9 @@ public class NewsListFragment extends Fragment
 
     // 页面指针，指定从第几条新闻开始加载
     private int pageIndex = 0;
+
+    // 指示当前是否正在刷新，防止多次刷新时重复加载
+    private boolean refreshing = false;
 
     private NewsPresenter newsPresenter;
 
@@ -110,19 +114,23 @@ public class NewsListFragment extends Fragment
 
     @Override
     public void onRefresh() {
+        if (refreshing) return; // 如果正在刷新中， 取消本次刷新
         pageIndex = 0;
         data.clear();
+        adapter.notifyDataSetChanged();
         newsPresenter.loadNews(type, pageIndex);
     }
 
     @Override
-    public void showLoading() {
+    public void showRefreshing() {
+        refreshing = true;
         swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
-    public void hideLoading() {
+    public void hideRefreshing() {
         swipeRefreshLayout.setRefreshing(false);
+        refreshing = false;
     }
 
     @Override

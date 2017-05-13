@@ -13,9 +13,9 @@ import java.util.List;
  */
 public interface NewsView {
 
-    void showLoading();
+    void showRefreshing();
 
-    void hideLoading();
+    void hideRefreshing();
 
     /**
      * 由于不同类型的新闻页面对FAB按钮的响应不同，故

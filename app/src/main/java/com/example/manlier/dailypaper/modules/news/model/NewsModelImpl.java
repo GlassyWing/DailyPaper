@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 /**
- * 新闻信息业务处理类
+ * 新闻信息数据存储处理类
  */
 public class NewsModelImpl implements NewsModel {
 

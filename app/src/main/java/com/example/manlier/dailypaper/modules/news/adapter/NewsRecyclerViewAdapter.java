@@ -16,6 +16,7 @@ import com.example.manlier.dailypaper.R;
 import com.example.manlier.dailypaper.beans.NewsBean;
 import com.example.manlier.dailypaper.modules.news.listeners.OnItemClickListener;
 import com.example.manlier.dailypaper.utils.ImageLoaderUtils;
+import com.orhanobut.logger.Logger;
 
 
 import java.util.List;
