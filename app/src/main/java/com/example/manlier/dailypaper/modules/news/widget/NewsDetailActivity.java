@@ -3,11 +3,14 @@ package com.example.manlier.dailypaper.modules.news.widget;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.manlier.dailypaper.R;
@@ -52,6 +55,9 @@ public class NewsDetailActivity extends MySwipeBackActivity
 
     private TextView tvTitle;
 
+    // 浮动按钮
+    private FloatingActionButton fab;
+
     // 进度条
     private ProgressBar progressBar;
 
@@ -69,21 +75,27 @@ public class NewsDetailActivity extends MySwipeBackActivity
         progressBar = (ProgressBar) findViewById(R.id.progress);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         textView = (HtmlTextView) findViewById(R.id.htNewsContent);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
 
+        // AppBar使用toolbar
         setSupportActionBar(toolbar);
 
+        // 设置显示应用条的可返回按钮
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         }
 
-        // 设置左上角是否有返回图标
+        NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.nsvDetail);
+        fab.setOnClickListener(v -> scrollView.fullScroll(View.FOCUS_UP));
+
+        // 设置点击按钮时返回
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         swipeBackLayout = getSwipeBackLayout();
         swipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
 
+        // 反序列化得到传入的NewsBean对象
         newsBean = (NewsBean) getIntent().getSerializableExtra("news");
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout)

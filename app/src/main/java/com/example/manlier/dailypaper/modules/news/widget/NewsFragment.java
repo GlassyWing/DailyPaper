@@ -34,7 +34,7 @@ public class NewsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_news, null);
+        View view = inflater.inflate(R.layout.fragment_news, container, false);
         tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setOffscreenPageLimit(3);
@@ -44,11 +44,17 @@ public class NewsFragment extends Fragment {
         // 建立tab视图
         buildViewPager(viewPager, adapter);
 
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         // 当切换tab页面时，重新配置FAB按钮的点击事件
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                ((NewsListFragment) adapter.getItem(tab.getPosition())).changeFABAction();
+                ((NewsListFragment) adapter.getItem(tab.getPosition())).changeFABAction(getActivity());
             }
 
             @Override
@@ -61,7 +67,6 @@ public class NewsFragment extends Fragment {
 
             }
         });
-        return view;
     }
 
     /**
