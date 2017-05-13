@@ -29,26 +29,46 @@ public class NewsFragment extends Fragment {
     // tab布局
     private TabLayout tabLayout;
 
+    private NewsFragmentPagerAdapter adapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_news, container, false);
+        View view = inflater.inflate(R.layout.fragment_news, null);
         tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setOffscreenPageLimit(3);
 
-        // 建立视图调度器
-        buildViewPager(viewPager);
+        adapter = new NewsFragmentPagerAdapter(getChildFragmentManager());
 
+        // 建立tab视图
+        buildViewPager(viewPager, adapter);
+
+        // 当切换tab页面时，重新配置FAB按钮的点击事件
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                ((NewsListFragment) adapter.getItem(tab.getPosition())).changeFABAction();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
         return view;
     }
 
     /**
-     * 配置视图调配器
+     * 配置tab视图的页面
      */
-    private void buildViewPager(ViewPager viewPager) {
+    private void buildViewPager(ViewPager viewPager, NewsFragmentPagerAdapter adapter) {
 
-        NewsFragmentPagerAdapter adapter = new NewsFragmentPagerAdapter(getChildFragmentManager());
 
         for (NewsType type : NewsType.values()) {
 

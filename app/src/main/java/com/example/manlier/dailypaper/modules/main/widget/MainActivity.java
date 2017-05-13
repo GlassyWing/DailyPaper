@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame_content, new NewsFragment())
                 .commit();
-        toolbar.setTitle(R.string.navigation_news);
+        toolbar.setTitle(R.string.app_name);
     }
 
     @Override

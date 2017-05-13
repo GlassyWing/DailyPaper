@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">DailyPaper</string>
+    <string name="app_name">Daily Paper</string>
     <string name="about_card_title">Daily Paper</string>
     <string name="about_card_message">这是一个基于安卓Material Design设计的新闻客户端</string>
     <string name="action_settings">关于</string>

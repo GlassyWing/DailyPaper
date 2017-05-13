@@ -15,12 +15,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.manlier.dailypaper.R;
 import com.example.manlier.dailypaper.beans.NewsBean;
@@ -73,7 +71,12 @@ public class NewsListFragment extends Fragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_newslist, container, false);
+        View view = inflater.inflate(R.layout.fragment_newslist, null);
+
+        // 如果是第一个页面，初始化FAB按钮点击事件
+        if (type == NewsType.TOP) {
+            changeFABAction();
+        }
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_widget);
 
@@ -100,6 +103,10 @@ public class NewsListFragment extends Fragment
         return view;
     }
 
+    public void changeFABAction() {
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        fab.setOnClickListener(v -> recyclerView.smoothScrollToPosition(-10));
+    }
 
     @Override
     public void onRefresh() {

@@ -17,6 +17,13 @@ public interface NewsView {
 
     void hideLoading();
 
+    /**
+     * 由于不同类型的新闻页面对FAB按钮的响应不同，故
+     * 切换到当前页面时需要
+     * 变更FAB按钮点击事件
+     */
+    void changeFABAction();
+
     void addNews(List<NewsBean> newsBeanList);
 
     void showLoadFailMsg();
