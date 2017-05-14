@@ -7,6 +7,7 @@ import com.example.manlier.dailypaper.modules.news.listeners.OnLoadNewsDetailLis
 import com.example.manlier.dailypaper.modules.news.model.NewsModel;
 import com.example.manlier.dailypaper.modules.news.model.NewsModelImpl;
 import com.example.manlier.dailypaper.modules.news.view.NewsDetailView;
+import com.orhanobut.logger.Logger;
 
 /**
  * Created by manlier on 2017/5/12.
@@ -35,6 +36,8 @@ public class NewsDetailPresenterImpl
     public void onSuccess(NewsDetailBean newsDetailBean) {
         if (newsDetailBean != null) {
             newsDetailView.showNewsDetail(newsDetailBean.getTitle(), newsDetailBean.getBody());
+        } else {
+            Logger.log(Logger.ERROR, getClass().getCanonicalName(),"Load Error", null);
         }
         newsDetailView.hideLoading();
     }

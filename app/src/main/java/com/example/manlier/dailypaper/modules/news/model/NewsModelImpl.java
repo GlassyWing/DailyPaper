@@ -6,11 +6,18 @@ import com.example.manlier.dailypaper.commons.API;
 import com.example.manlier.dailypaper.commons.NewsType;
 import com.example.manlier.dailypaper.modules.news.listeners.OnLoadNewsDetailListener;
 import com.example.manlier.dailypaper.modules.news.listeners.OnLoadNewsListener;
+import com.example.manlier.dailypaper.modules.news.presenter.NewsPresenterImpl;
 import com.example.manlier.dailypaper.modules.news.processor.NewsJsonProcessor;
 import com.example.manlier.dailypaper.modules.news.widget.NewsFragment;
 import com.example.manlier.dailypaper.utils.OkHttpUtils;
+import com.orhanobut.logger.Logger;
 
+import java.io.IOException;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 /**
  * Created by manlier on 2017/5/10.
@@ -21,35 +28,40 @@ import java.util.List;
  */
 public class NewsModelImpl implements NewsModel {
 
+    private static int ATTEMPT_TIME = 3;
+    public static final String TAG = NewsPresenterImpl.class.getCanonicalName();
+
     @Override
     public void loadNews(String url, NewsType type, OnLoadNewsListener listener) {
-        OkHttpUtils.get(url, new OkHttpUtils.ResultCallback<String>() {
 
+        OkHttpUtils.get(url, new OkHttpUtils.ResultCallback<String>() {
             @Override
             public void onSuccess(String response) {
-                List<NewsBean> newsBeanList = NewsJsonProcessor.parseToNewsBeans(response, type.ID);
-                listener.onSuccess(newsBeanList);
+                List<NewsBean> beanList = NewsJsonProcessor.parseToNewsBeans(response, type.ID);
+                listener.onSuccess(beanList);
             }
 
             @Override
             public void onFailure(Exception e) {
-                listener.onFailure("载入新闻信息失败！", e);
+                listener.onFailure("Load news fail", e);
             }
         });
+
     }
 
     @Override
     public void loadNewsDetail(String docId, OnLoadNewsDetailListener listener) {
-        OkHttpUtils.get(newsDetailAPI(docId), new OkHttpUtils.ResultCallback<String>() {
+        String url = newsDetailAPI(docId);
+        OkHttpUtils.get(url, new OkHttpUtils.ResultCallback<String>() {
             @Override
             public void onSuccess(String response) {
-                NewsDetailBean newsDetailBean = NewsJsonProcessor.parseToNewsDetailBean(response, docId);
-                listener.onSuccess(newsDetailBean);
+                NewsDetailBean detailBean = NewsJsonProcessor.parseToNewsDetailBean(response, docId);
+                listener.onSuccess(detailBean);
             }
 
             @Override
             public void onFailure(Exception e) {
-                listener.onFailure("载入新闻详情失败！", e);
+                listener.onFailure("Load news detail fail", e);
             }
         });
     }

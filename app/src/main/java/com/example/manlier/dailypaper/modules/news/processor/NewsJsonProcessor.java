@@ -2,15 +2,13 @@ package com.example.manlier.dailypaper.modules.news.processor;
 
 import com.example.manlier.dailypaper.beans.NewsBean;
 import com.example.manlier.dailypaper.beans.NewsDetailBean;
-import com.example.manlier.dailypaper.utils.JsonUtils;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by manlier on 2017/5/10.
@@ -31,26 +29,31 @@ public class NewsJsonProcessor {
      * @return 指定新闻类型的新闻
      */
     public static List<NewsBean> parseToNewsBeans(String json, String newsType) {
-        List<NewsBean> beanList = new ArrayList<>();
-
+        List<NewsBean> result = new ArrayList<>();
         try {
-            JsonParser parser = new JsonParser();
-            JsonObject jsonObject = parser.parse(json).getAsJsonObject();
-            JsonElement jsonElement = jsonObject.get(newsType);
-            if (jsonElement == null)
-                return null;
-            JsonArray jsonArray = jsonElement.getAsJsonArray();
-            jsonArray.forEach(element -> {
-                JsonObject jo = element.getAsJsonObject();
-                if (isInterest(jo)) {
-                    beanList.add(JsonUtils.deserialize(jo, NewsBean.class));
-                }
-            });
+            Gson gson = new Gson();
+            Map<String, List<NewsBean>> tmp = gson.fromJson(json, new TypeToken<Map<String, List<NewsBean>>>(){}.getType());
+            tmp.get(newsType).stream()
+                    .filter(NewsJsonProcessor::isInterest)
+                    .map(bean -> {
+                        bean.setDocid(bean.getDocid().replace("_special", ""));
+                        return bean;
+                    })
+                    .forEach(result::add);
+            return result;
         } catch (Exception e) {
             Logger.log(Logger.ERROR, TAG, "error occurs on parsing news json", e);
         }
+        return result;
+    }
 
-        return beanList;
+    public static List<NewsBean> parseToNewsBeans(String json, String newsType, int attemptTime) {
+        for (int i = 0; i < attemptTime; i++) {
+            List<NewsBean> result = parseToNewsBeans(json, newsType);
+            if (result != null) return result;
+            Logger.e("json parse to NewsBean error, retry times: %2d", (i + 1));
+        }
+        return null;
     }
 
     /**
@@ -60,44 +63,26 @@ public class NewsJsonProcessor {
      * @return 新闻详情
      */
     public static NewsDetailBean parseToNewsDetailBean(String json, String docId) {
-        NewsDetailBean newsDetailBean = null;
         try {
-            JsonParser parser = new JsonParser();
-            JsonObject jo = parser.parse(json).getAsJsonObject();
-            JsonElement jsonElement = jo.get(docId);
-            if (jsonElement == null)
-                return null;
-            newsDetailBean = JsonUtils.deserialize(jsonElement.getAsJsonObject(), NewsDetailBean.class);
+            Gson gson = new Gson();
+            Map<String, NewsDetailBean> result = gson.fromJson(json, new TypeToken<Map<String, NewsDetailBean>>(){}.getType());
+            return result.get(docId);
         } catch (Exception e) {
             Logger.log(Logger.ERROR, TAG, "error occurs on parsing news detail json", e);
         }
-        return newsDetailBean;
+        return null;
     }
 
-    /**
-     * 检测JsonObject对象是否是我们感兴趣的对象
-     *
-     * @param jo sonObject对象
-     * @return bool 表示是否感兴趣
-     */
-    private static boolean isInterest(JsonObject jo) {
-        // 跳过特殊类型
-//        if (jo.has("skipType") && "special".equals(jo.get("skipType").getAsString())) {
-//            return false;
-//        }
+    public static NewsDetailBean parseToNewsDetailBean(String json, String docId, int attemptTime) {
+        for (int i = 0; i < attemptTime; i++) {
+            NewsDetailBean result = parseToNewsDetailBean(json, docId);
+            if (result != null) return result;
+            Logger.e("json parse to NewsDetailBean error, retry times: %2d" + (i + 1));
+        }
+        return null;
+    }
 
-        // 跳过多标签（多类型）的新闻
-//        if (jo.has("TAGS") && !jo.has("TAG")) {
-//            return false;
-//        }
-//
-        // 跳过拥有图集的新闻
-//        if (!jo.has("imgextra")) {
-//            NewsBean news = JsonUtils.deserialize(jo, NewsBean.class);
-//            return false;
-//        }
-
-        return !(jo.has("skipType") && "special".equals(jo.get("skipType").getAsString())) && !(jo.has("TAGS") /*&& !jo.has("TAG")*/) && !jo.has("imgextra");
-
+    private static boolean isInterest(NewsBean bean) {
+        return bean.getDigest() != null;
     }
 }

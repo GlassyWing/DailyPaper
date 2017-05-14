@@ -142,20 +142,20 @@ public class NewsListFragment extends Fragment
         adapter.setShowFooter(true);  // 显示 加载中。。。
 
         data.addAll(newsBeanList);
+        data.sort((o1, o2) -> o2.getPtime().compareTo(o1.getPtime()));
 
         // 若是首次加载
         if (pageIndex == 0) {
             adapter.setData(data);   // 为adapter设置数据源
-            adapter.notifyDataSetChanged();
         } else {
             // 如果已无更多数据
-            if (newsBeanList == null || newsBeanList.size() == 0) {
+            if (newsBeanList.size() == 0) {
                 adapter.setShowFooter(false);  // 隐藏 加载中。。。
             }
-
-            // 每次数据改变，需要通知adapter
-            adapter.notifyDataSetChanged();
         }
+
+        // 每次数据改变，需要通知adapter
+        adapter.notifyDataSetChanged();
 
         // 更新页面索引
         pageIndex += API.PAGE_SIZE;
@@ -212,7 +212,7 @@ public class NewsListFragment extends Fragment
                     && adapter.isShowFooter()) {
                 //加载更多
                 Logger.d(TAG, "loading more data");
-                newsPresenter.loadNews(type, pageIndex + API.PAGE_SIZE);
+                newsPresenter.loadNews(type, pageIndex);
             }
         }
     };

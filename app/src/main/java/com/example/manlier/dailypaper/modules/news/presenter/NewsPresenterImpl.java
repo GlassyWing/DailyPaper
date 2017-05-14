@@ -46,9 +46,6 @@ public class NewsPresenterImpl implements
     public void onSuccess(List<NewsBean> list) {
         Logger.d(TAG, list);
 
-        // 按日期从大到小排序
-        Collections.sort(list, (o1, o2) -> o2.getPtime().compareTo(o1.getPtime()));
-
         // 一旦加载完成，隐藏刷新部件
         newsView.hideRefreshing();
         newsView.addNews(list);

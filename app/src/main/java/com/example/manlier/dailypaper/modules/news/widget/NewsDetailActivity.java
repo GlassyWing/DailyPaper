@@ -20,6 +20,7 @@ import com.example.manlier.dailypaper.modules.news.presenter.NewsDetailPresenter
 import com.example.manlier.dailypaper.modules.news.view.NewsDetailView;
 import com.example.manlier.dailypaper.utils.ImageLoaderUtils;
 import com.example.manlier.dailypaper.wigets.MySwipeBackActivity;
+import com.orhanobut.logger.Logger;
 
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
 import org.sufficientlysecure.htmltextview.HtmlTextView;
@@ -39,6 +40,8 @@ import me.imid.swipebacklayout.lib.SwipeBackLayout;
  */
 public class NewsDetailActivity extends MySwipeBackActivity
         implements NewsDetailView {
+
+    public static final String TAG = NewsDetailActivity.class.getCanonicalName();
 
     // 从NewsFragment传递过来的组件
     private NewsBean newsBean;
@@ -97,6 +100,7 @@ public class NewsDetailActivity extends MySwipeBackActivity
 
         // 反序列化得到传入的NewsBean对象
         newsBean = (NewsBean) getIntent().getSerializableExtra("news");
+        Logger.i("get newsBean: %s", newsBean.toString());
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout)
                 findViewById(R.id.collapsing_toolbar);
