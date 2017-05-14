@@ -139,7 +139,6 @@ public class NewsListFragment extends Fragment
 
     @Override
     public void addNews(List<NewsBean> newsBeanList) {
-        adapter.setShowFooter(true);  // 显示 加载中。。。
 
         data.addAll(newsBeanList);
         data.sort((o1, o2) -> o2.getPtime().compareTo(o1.getPtime()));
@@ -164,7 +163,7 @@ public class NewsListFragment extends Fragment
     @Override
     public void showLoadFailMsg() {
 
-        // 如果还没有加载任何数据
+        // 如果发生错误时还没有加载任何数据
         if (pageIndex == 0) {
             adapter.setShowFooter(false);   // 隐藏脚部（加载中。。。部件）
             adapter.notifyDataSetChanged();

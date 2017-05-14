@@ -98,6 +98,7 @@ public class NewsDetailActivity extends MySwipeBackActivity
         swipeBackLayout = getSwipeBackLayout();
         swipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
 
+
         // 反序列化得到传入的NewsBean对象
         newsBean = (NewsBean) getIntent().getSerializableExtra("news");
         Logger.i("get newsBean: %s", newsBean.toString());

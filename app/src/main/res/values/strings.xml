@@ -1,8 +1,8 @@
 <resources>
 
-    <string name="app_name">Daily Paper</string>
+    <string name="app_name">知更鸟</string>
     <string name="about_card_title">Daily Paper</string>
-    <string name="about_card_message">这是一个基于安卓Material Design设计的新闻客户端</string>
+    <string name="about_card_message">这是一个学习安卓Material Design设计的新闻客户端</string>
     <string name="action_settings">关于</string>
 
     <string name="navigation_news">新闻</string>
@@ -13,6 +13,4 @@
 
     <string name="load_fail">加载数据失败!</string>
     <string name="title_activity_news_detail">NewsDetailActivity</string>
-
-    <string name="image_hit">一次只加载20条，查看更多内容请刷新哦。</string>
 </resources>

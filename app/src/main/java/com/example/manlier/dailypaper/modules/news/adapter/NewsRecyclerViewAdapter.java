@@ -79,7 +79,7 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             return TYPE_ITEM;
         }
 
-        // 若是最后一个元素
+        // 若正显示脚部且是最后一个元素
         if (position + 1 == getItemCount()) {
 
             // 返回脚部类型
@@ -126,7 +126,7 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public int getItemCount() {
-        int base = showFooter ? 1 : 0;
+        int base = showFooter ? 1 : 0; // 若当前正显示 脚部加载中。。。 数量+1
         if (data == null) {
             return base;
         }
