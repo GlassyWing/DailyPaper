@@ -11,6 +11,7 @@ import com.example.manlier.dailypaper.modules.news.widget.NewsFragment;
 import com.orhanobut.logger.Logger;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -48,6 +49,12 @@ public class NewsPresenterImpl implements
 
         // 一旦加载完成，隐藏刷新部件
         newsView.hideRefreshing();
+        list.sort(new Comparator<NewsBean>() {
+            @Override
+            public int compare(NewsBean o1, NewsBean o2) {
+                return o2.getPtime().compareTo(o1.getPtime());
+            }
+        });
         newsView.addNews(list);
     }
 

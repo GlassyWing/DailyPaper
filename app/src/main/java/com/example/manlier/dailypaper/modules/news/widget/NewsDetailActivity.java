@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.manlier.dailypaper.R;
@@ -20,7 +19,6 @@ import com.example.manlier.dailypaper.modules.news.presenter.NewsDetailPresenter
 import com.example.manlier.dailypaper.modules.news.view.NewsDetailView;
 import com.example.manlier.dailypaper.utils.ImageLoaderUtils;
 import com.example.manlier.dailypaper.wigets.MySwipeBackActivity;
-import com.orhanobut.logger.Logger;
 
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
 import org.sufficientlysecure.htmltextview.HtmlTextView;
@@ -90,10 +88,20 @@ public class NewsDetailActivity extends MySwipeBackActivity
         }
 
         NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.nsvDetail);
-        fab.setOnClickListener(v -> scrollView.fullScroll(View.FOCUS_UP));
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.fullScroll(View.FOCUS_UP);
+            }
+        });
 
         // 设置点击按钮时返回
-        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         swipeBackLayout = getSwipeBackLayout();
         swipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
@@ -101,8 +109,6 @@ public class NewsDetailActivity extends MySwipeBackActivity
 
         // 反序列化得到传入的NewsBean对象
         newsBean = (NewsBean) getIntent().getSerializableExtra("news");
-        Logger.i("get newsBean: %s", newsBean.toString());
-
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout)
                 findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle(newsBean.getTitle());
@@ -110,10 +116,8 @@ public class NewsDetailActivity extends MySwipeBackActivity
         ImageLoaderUtils.display(getApplicationContext(), imageView,
                 newsBean.getImgsrc());
 
-        newsDetailPresenter = new NewsDetailPresenterImpl(getApplicationContext(), this);
+        newsDetailPresenter = new NewsDetailPresenterImpl(this);
         newsDetailPresenter.loadNewsDetail(newsBean.getDocid());
-
-
     }
 
 

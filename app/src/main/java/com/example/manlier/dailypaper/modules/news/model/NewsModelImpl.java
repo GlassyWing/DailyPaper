@@ -10,14 +10,9 @@ import com.example.manlier.dailypaper.modules.news.presenter.NewsPresenterImpl;
 import com.example.manlier.dailypaper.modules.news.processor.NewsJsonProcessor;
 import com.example.manlier.dailypaper.modules.news.widget.NewsFragment;
 import com.example.manlier.dailypaper.utils.OkHttpUtils;
-import com.orhanobut.logger.Logger;
 
-import java.io.IOException;
 import java.util.List;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 /**
  * Created by manlier on 2017/5/10.

@@ -83,7 +83,6 @@
                 android:textSize="@dimen/sn_20sp"
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Loading title"
                 android:lineSpacingMultiplier="1.5"/>
 
             <!--html页面-->
@@ -97,8 +96,7 @@
                 android:paddingBottom="@dimen/detail_padding_bottom"
                 android:lineSpacingMultiplier="1.3"
                 android:textColor="@color/secondary_text"
-                android:textAppearance="@android:style/TextAppearance.Small"
-                android:text="Loading content"/>
+                android:textAppearance="@android:style/TextAppearance.Small" />
 
         </LinearLayout>
 

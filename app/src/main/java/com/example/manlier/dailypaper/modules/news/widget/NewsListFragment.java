@@ -140,6 +140,8 @@ public class NewsListFragment extends Fragment
     @Override
     public void addNews(List<NewsBean> newsBeanList) {
 
+        adapter.setShowFooter(true);
+
         data.addAll(newsBeanList);
         data.sort((o1, o2) -> o2.getPtime().compareTo(o1.getPtime()));
 

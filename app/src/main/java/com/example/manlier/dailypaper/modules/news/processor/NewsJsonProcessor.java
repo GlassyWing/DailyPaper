@@ -83,6 +83,6 @@ public class NewsJsonProcessor {
     }
 
     private static boolean isInterest(NewsBean bean) {
-        return bean.getDigest() != null;
+        return !bean.getDigest().equals("");
     }
 }

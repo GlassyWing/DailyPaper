@@ -16,12 +16,10 @@ import com.orhanobut.logger.Logger;
 public class NewsDetailPresenterImpl
         implements NewsDetailPresenter, OnLoadNewsDetailListener {
 
-    private Context context;
     private NewsDetailView newsDetailView;
     private NewsModel newsModel;
 
-    public NewsDetailPresenterImpl(Context context, NewsDetailView newsDetailView) {
-        this.context = context;
+    public NewsDetailPresenterImpl( NewsDetailView newsDetailView) {
         this.newsDetailView = newsDetailView;
         newsModel = new NewsModelImpl();
     }

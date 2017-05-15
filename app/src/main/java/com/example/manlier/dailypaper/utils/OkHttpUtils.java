@@ -7,6 +7,10 @@ import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 
@@ -27,7 +31,9 @@ public class OkHttpUtils {
 
     private OkHttpClient client;
 
-    private Handler handler;
+    private Handler handler = new Handler(Looper.getMainLooper());
+
+    private ExecutorService service = Executors.newCachedThreadPool();
 
     private OkHttpUtils() {
         client = new OkHttpClient.Builder()
@@ -35,7 +41,10 @@ public class OkHttpUtils {
                 .writeTimeout(5, TimeUnit.SECONDS)
                 .readTimeout(5, TimeUnit.SECONDS)
                 .build();
-        handler = new Handler(Looper.getMainLooper());
+    }
+
+    public synchronized OkHttpClient getClient() {
+        return client;
     }
 
     /**
@@ -57,58 +66,54 @@ public class OkHttpUtils {
         getInstance().getRequest(url, callback);
     }
 
-    public Request buildRequest(String url) {
-        return new Request.Builder()
-                .url(url)
-                .header("User-Agent", "okHttp3")
-                .addHeader("Accept","text/html,application/xhtml+xml,application/xml,application/json;q=0.9,image/webp,*/*;q=0.8")
-                .addHeader("Accept-Language", "zh-CN,zh;q=0.8")
-                .build();
-    }
-
     public void getRequest(String url, ResultCallback callback) {
-        Logger.i("request url: %s", url);
-        client.newCall(buildRequest(url)).enqueue(new Callback() {
+        service.execute(new Runnable() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                Logger.log(Logger.ERROR, TAG, "request url fail", e);
-                sendFailCallback(callback, e);
-            }
+            public void run() {
+                Logger.i("request url: %s", url);
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .connectTimeout(5, TimeUnit.SECONDS)
+                        .writeTimeout(5, TimeUnit.SECONDS)
+                        .readTimeout(5, TimeUnit.SECONDS)
+                        .build();
+                client.newCall(new Request.Builder()
+                        .url(url)
+                        .header("User-Agent", "okHttp 3")
+                        .addHeader("Accept", "text/html,application/xhtml+xml,application/xml,application/json;q=0.9,image/webp,*/*;q=0.8")
+                        .addHeader("Accept-Language", "zh-CN,zh;q=0.8")
+                        .build()).enqueue(new Callback() {
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-                String body = response.body().string();
-                Logger.i("response body: %s", body);
-                sendSuccessCallback(callback, body);
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Logger.log(Logger.ERROR, TAG, "request url fail", e);
+                        handler.post(() -> callback.onFailure(e));
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        if (!response.isSuccessful())
+                            throw new IOException("Unexpected code " + response);
+                        String body = response.body().string();
+                        Logger.i("response body: %s", body);
+                        handler.post(() -> callback.onSuccess(body));
+                    }
+                });
             }
         });
-    }
 
-    private void sendFailCallback(ResultCallback callback, Exception e) {
-        handler.post(() -> {
-            if (callback != null)
-                callback.onFailure(e);
-        });
-    }
-
-    private void sendSuccessCallback(ResultCallback callback, Object obj) {
-        handler.post(() -> {
-            if (callback != null) {
-                callback.onSuccess(obj);
-            }
-        });
     }
 
     public static abstract class ResultCallback<T> {
         /**
          * 请求成功回调
+         *
          * @param response
          */
         public abstract void onSuccess(T response);
 
         /**
          * 请求失败回调
+         *
          * @param e
          */
         public abstract void onFailure(Exception e);
