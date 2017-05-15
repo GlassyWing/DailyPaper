@@ -28,7 +28,7 @@ import com.example.manlier.dailypaper.commons.NewsType;
 import com.example.manlier.dailypaper.modules.news.adapter.NewsRecyclerViewAdapter;
 import com.example.manlier.dailypaper.modules.news.listeners.OnItemClickListener;
 import com.example.manlier.dailypaper.modules.news.presenter.NewsPresenter;
-import com.example.manlier.dailypaper.modules.news.presenter.NewsPresenterImpl;
+import com.example.manlier.dailypaper.modules.news.presenter.NewsPresenterImplWithObservable;
 import com.example.manlier.dailypaper.modules.news.view.NewsView;
 import com.orhanobut.logger.Logger;
 
@@ -67,7 +67,7 @@ public class NewsListFragment extends Fragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        newsPresenter = new NewsPresenterImpl(this);
+        newsPresenter = new NewsPresenterImplWithObservable(this);
         type = (NewsType) getArguments().getSerializable("type");
         data = new ArrayList<>();
     }

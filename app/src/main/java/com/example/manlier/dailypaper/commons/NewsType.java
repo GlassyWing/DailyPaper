@@ -9,12 +9,15 @@ package com.example.manlier.dailypaper.commons;
  */
 public enum NewsType {
 
-    TOP(API.TOP_ID, "头条", true),
+    TOP(API.TOP_ID, "头条", "headline", true),
     TECH(API.TECH_ID, "科技"),
     CHOICE(API.CHOICE_ID, "精选"),
     NBA(API.NBA_ID, "NBA"),
     JOKE(API.JOKE_ID, "笑话"),
     MILITARY(API.MILITARY_ID, "军事");
+
+    // 类型
+    final public String TYPE;
 
     // 类型ID
     final public String ID;
@@ -26,11 +29,12 @@ public enum NewsType {
     private boolean top;
 
     NewsType(String ID, String desc) {
-        this(ID, desc, false);
+        this(ID, desc, "list", false);
     }
 
-    NewsType(String ID, String desc, boolean isTop) {
+    NewsType(String ID, String desc, String type, boolean isTop) {
         this.ID = ID;
+        this.TYPE = type;
         this.DESC = desc;
         this.top = isTop;
     }

@@ -24,5 +24,5 @@ public interface OnLoadNewsDetailListener {
      * @param msg 错误消息
      * @param e 异常
      */
-    void onFailure(String msg, Exception e);
+    void onFailure(String msg, Throwable e);
 }

@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.example.manlier.dailypaper.R;
 import com.example.manlier.dailypaper.beans.NewsBean;
 import com.example.manlier.dailypaper.modules.news.presenter.NewsDetailPresenter;
-import com.example.manlier.dailypaper.modules.news.presenter.NewsDetailPresenterImpl;
+import com.example.manlier.dailypaper.modules.news.presenter.NewsDetailPresenterImplWithObservable;
 import com.example.manlier.dailypaper.modules.news.view.NewsDetailView;
 import com.example.manlier.dailypaper.utils.ImageLoaderUtils;
 import com.example.manlier.dailypaper.wigets.MySwipeBackActivity;
@@ -104,8 +104,9 @@ public class NewsDetailActivity extends MySwipeBackActivity
         });
 
         swipeBackLayout = getSwipeBackLayout();
-        swipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
 
+        // 设置向右滑动返回
+        swipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
 
         // 反序列化得到传入的NewsBean对象
         newsBean = (NewsBean) getIntent().getSerializableExtra("news");
@@ -113,10 +114,11 @@ public class NewsDetailActivity extends MySwipeBackActivity
                 findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle(newsBean.getTitle());
 
+        // 显示图片
         ImageLoaderUtils.display(getApplicationContext(), imageView,
                 newsBean.getImgsrc());
 
-        newsDetailPresenter = new NewsDetailPresenterImpl(this);
+        newsDetailPresenter = new NewsDetailPresenterImplWithObservable(this);
         newsDetailPresenter.loadNewsDetail(newsBean.getDocid());
     }
 
