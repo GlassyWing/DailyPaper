@@ -70,6 +70,7 @@ public class NewsDetailPresenterImplWithObservable
 
     @Override
     public void onFailure(String msg, Throwable e) {
+        newsDetailView.showLoadErrorMessage();
         newsDetailView.hideLoading();
     }
 }

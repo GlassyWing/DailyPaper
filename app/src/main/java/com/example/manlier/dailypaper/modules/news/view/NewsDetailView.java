@@ -11,6 +11,8 @@ public interface NewsDetailView {
 
     void showNewsDetail(String title, String detail);
 
+    void showLoadErrorMessage();
+
     void showLoading();
 
     void hideLoading();

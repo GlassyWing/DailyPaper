@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -127,6 +128,12 @@ public class NewsDetailActivity extends MySwipeBackActivity
     public void showNewsDetail(String title, String detail) {
         tvTitle.setText(title);
         textView.setHtml(detail, new HtmlHttpImageGetter(textView));
+    }
+
+    @Override
+    public void showLoadErrorMessage() {
+        View view = this.findViewById(R.id.nsvDetail);
+        Snackbar.make(view, getString(R.string.load_fail), Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

@@ -20,7 +20,7 @@ import static com.example.manlier.dailypaper.modules.providers.RetrofitService.*
 
 public interface NewsService {
 
-    @Headers(CACHE_CONTROL_NETWORK)
+    @Headers({CACHE_CONTROL_NETWORK, AVOID_HTTP403_FORBIDDEN})
     @GET("http://c.m.163.com/nc/article/{docId}/full.html")
     Observable<Map<String, NewsDetailBean>> loadNewsDetail(@Path("docId") String docId);
 
@@ -34,7 +34,7 @@ public interface NewsService {
      * @param startPage 起始页码
      * @return
      */
-    @Headers(CACHE_CONTROL_NETWORK)
+    @Headers({CACHE_CONTROL_NETWORK, AVOID_HTTP403_FORBIDDEN})
     @GET("nc/article/{type}/{id}/{index}-20.html")
     Observable<Map<String, List<NewsBean>>> getNewsList(@Path("type") String type, @Path("id") String id,
                                                         @Path("index") int startPage);

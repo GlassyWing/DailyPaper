@@ -14,7 +14,6 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okio.Buffer;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -26,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitService {
 
     //设缓存有效期为1天
-    public static final long CACHE_STALE_SEC = 60 * 60 * 24 * 1;
+    public static final long CACHE_STALE_SEC = 60 * 60 * 24;
     //查询缓存的Cache-Control设置，为if-only-cache时只查询缓存而不会请求服务器，max-stale可以配合设置缓存失效时间
     private static final String CACHE_CONTROL_CACHE = "only-if-cached, max-stale=" + CACHE_STALE_SEC;
     //查询网络的Cache-Control设置
