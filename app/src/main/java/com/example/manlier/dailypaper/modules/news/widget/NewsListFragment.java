@@ -23,10 +23,10 @@ import android.view.ViewGroup;
 
 import com.example.manlier.dailypaper.R;
 import com.example.manlier.dailypaper.beans.NewsBean;
-import com.example.manlier.dailypaper.commons.API;
-import com.example.manlier.dailypaper.commons.NewsType;
-import com.example.manlier.dailypaper.modules.news.adapter.NewsRecyclerViewAdapter;
-import com.example.manlier.dailypaper.modules.news.listeners.OnItemClickListener;
+import com.example.manlier.dailypaper.contracts.API;
+import com.example.manlier.dailypaper.contracts.NewsType;
+import com.example.manlier.dailypaper.adapter.NewsRecyclerViewAdapter;
+import com.example.manlier.dailypaper.listeners.OnItemClickListener;
 import com.example.manlier.dailypaper.modules.news.presenter.NewsPresenter;
 import com.example.manlier.dailypaper.modules.news.presenter.NewsPresenterImplWithObservable;
 import com.example.manlier.dailypaper.modules.news.view.NewsView;

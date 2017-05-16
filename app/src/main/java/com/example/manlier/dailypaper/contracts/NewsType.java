@@ -1,4 +1,4 @@
-package com.example.manlier.dailypaper.commons;
+package com.example.manlier.dailypaper.contracts;
 
 /**
  * Created by manlier on 2017/5/13.

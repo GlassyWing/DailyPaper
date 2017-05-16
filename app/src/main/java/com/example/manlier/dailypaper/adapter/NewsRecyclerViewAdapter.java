@@ -1,4 +1,4 @@
-package com.example.manlier.dailypaper.modules.news.adapter;
+package com.example.manlier.dailypaper.adapter;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -14,9 +14,8 @@ import android.widget.TextView;
 
 import com.example.manlier.dailypaper.R;
 import com.example.manlier.dailypaper.beans.NewsBean;
-import com.example.manlier.dailypaper.modules.news.listeners.OnItemClickListener;
+import com.example.manlier.dailypaper.listeners.OnItemClickListener;
 import com.example.manlier.dailypaper.utils.ImageLoaderUtils;
-import com.orhanobut.logger.Logger;
 
 
 import java.util.List;
@@ -32,34 +31,18 @@ import java.util.List;
  * 1是 新闻条目部件 的视图
  * 2是 脚部 即：（加载中。。。）部件的视图
  */
-public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    // 本适配器持有的视图有两类
-    private static final int TYPE_ITEM = 0;   // 新闻条目
-    private static final int TYPE_FOOTER = 1; // 脚部加载部件
-
-    private List<NewsBean> data;        // 数据
-    private boolean showFooter = true;  // 是否显示脚部加载部件,即（加载中。。。）
-    private Context context;            // 上下文
+public class NewsRecyclerViewAdapter extends WithFooterRecyclerViewAdapter<NewsBean> {
 
     // 条目单击监听器
     private OnItemClickListener onItemClickListener;
 
     public NewsRecyclerViewAdapter(Context context) {
-        this.context = context;
+        super(context);
     }
 
     public void setData(List<NewsBean> data) {
         this.data = data;
         notifyDataSetChanged();
-    }
-
-    public boolean isShowFooter() {
-        return showFooter;
-    }
-
-    public void setShowFooter(boolean showFooter) {
-        this.showFooter = showFooter;
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -68,24 +51,6 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     public NewsBean getItem(int position) {
         return data == null ? null : data.get(position);
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-
-        // 若没有显示脚部
-        if (!showFooter) {
-            // 直接返回新闻类型
-            return TYPE_ITEM;
-        }
-
-        // 若正显示脚部且是最后一个元素
-        if (position + 1 == getItemCount()) {
-
-            // 返回脚部类型
-            return TYPE_FOOTER;
-        }
-        return TYPE_ITEM;
     }
 
     @Override
@@ -122,15 +87,6 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             vh.time.setText(newsBean.getPtime());
             ImageLoaderUtils.display(context, vh.image, newsBean.getImgsrc());
         }
-    }
-
-    @Override
-    public int getItemCount() {
-        int base = showFooter ? 1 : 0; // 若当前正显示 脚部加载中。。。 数量+1
-        if (data == null) {
-            return base;
-        }
-        return data.size() + base;
     }
 
     /**

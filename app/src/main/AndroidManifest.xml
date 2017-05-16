@@ -26,6 +26,9 @@
             android:parentActivityName=".modules.main.widget.MainActivity"/>
         <activity android:name=".modules.about.AboutActivity"
             android:parentActivityName=".modules.main.widget.MainActivity"/>
+        <activity android:name=".modules.comments.widget.CommentActivity"
+            android:parentActivityName=".modules.news.widget.NewsDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/google_assistant_background"
+    android:paddingEnd="@dimen/zero_horizontal_margin"
+    android:paddingStart="@dimen/zero_horizontal_margin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/detail_padding_top"
+        android:paddingEnd="@dimen/detail_padding_right"
+        android:paddingStart="@dimen/detail_padding_left"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/card_margin_top"
+            app:counterEnabled="true"
+            app:counterMaxLength="150"
+            app:hintAnimationEnabled="true"
+            app:hintEnabled="true"
+            app:counterOverflowTextAppearance="@style/TextOverCount"
+            app:errorEnabled="true">
+            <EditText
+                android:id="@+id/btn_dialog_bottom_sheet_comment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/dialog_title"
+                android:textSize="@dimen/sn_20sp"
+                android:lineSpacingMultiplier="1.2"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp">
+
+            <Button
+                android:id="@+id/btn_dialog_bottom_sheet_ok"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="@string/dialog_ok"
+                android:textColor="@color/primary" />
+
+            <Button
+                android:id="@+id/btn_dialog_bottom_sheet_cancel"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/btn_dialog_bottom_sheet_ok"
+                android:text="@string/dialog_cancel"
+                android:textColor="@color/primary" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

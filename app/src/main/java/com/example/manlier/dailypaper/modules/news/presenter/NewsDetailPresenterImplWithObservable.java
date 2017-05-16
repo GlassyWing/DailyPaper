@@ -1,7 +1,7 @@
 package com.example.manlier.dailypaper.modules.news.presenter;
 
 import com.example.manlier.dailypaper.beans.NewsDetailBean;
-import com.example.manlier.dailypaper.modules.news.listeners.OnLoadNewsDetailListener;
+import com.example.manlier.dailypaper.listeners.OnLoadNewsDetailListener;
 import com.example.manlier.dailypaper.modules.news.view.NewsDetailView;
 import com.example.manlier.dailypaper.modules.providers.RetrofitService;
 import com.orhanobut.logger.Logger;

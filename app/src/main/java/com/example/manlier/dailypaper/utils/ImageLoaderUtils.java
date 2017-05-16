@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.target.ImageViewTarget;
 import com.example.manlier.dailypaper.R;
-import com.example.manlier.dailypaper.modules.news.listeners.OnLoadImageListener;
+import com.example.manlier.dailypaper.listeners.OnLoadImageListener;
 
 /**
  * 图片加载工具类

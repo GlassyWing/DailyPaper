@@ -1,4 +1,4 @@
-package com.example.manlier.dailypaper.commons;
+package com.example.manlier.dailypaper.contracts;
 
 /**
  * 网易新闻的API接口

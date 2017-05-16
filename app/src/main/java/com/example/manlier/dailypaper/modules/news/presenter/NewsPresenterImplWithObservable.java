@@ -1,10 +1,8 @@
 package com.example.manlier.dailypaper.modules.news.presenter;
 
-import android.support.annotation.NonNull;
-
 import com.example.manlier.dailypaper.beans.NewsBean;
-import com.example.manlier.dailypaper.commons.NewsType;
-import com.example.manlier.dailypaper.modules.news.listeners.OnLoadNewsListener;
+import com.example.manlier.dailypaper.contracts.NewsType;
+import com.example.manlier.dailypaper.listeners.OnLoadNewsListener;
 import com.example.manlier.dailypaper.modules.news.view.NewsView;
 import com.example.manlier.dailypaper.modules.providers.RetrofitService;
 import com.orhanobut.logger.Logger;
@@ -13,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import rx.Observable;
 import rx.Observer;

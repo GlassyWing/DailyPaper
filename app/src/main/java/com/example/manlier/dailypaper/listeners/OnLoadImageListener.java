@@ -1,4 +1,4 @@
-package com.example.manlier.dailypaper.modules.news.listeners;
+package com.example.manlier.dailypaper.listeners;
 
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 

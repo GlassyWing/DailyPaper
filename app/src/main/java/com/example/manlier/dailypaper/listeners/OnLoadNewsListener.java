@@ -1,4 +1,4 @@
-package com.example.manlier.dailypaper.modules.news.listeners;
+package com.example.manlier.dailypaper.listeners;
 
 /**
  * Created by manlier on 2017/5/10.

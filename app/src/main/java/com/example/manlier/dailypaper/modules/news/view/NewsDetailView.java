@@ -16,4 +16,6 @@ public interface NewsDetailView {
     void showLoading();
 
     void hideLoading();
+
+    void switchToComment();
 }

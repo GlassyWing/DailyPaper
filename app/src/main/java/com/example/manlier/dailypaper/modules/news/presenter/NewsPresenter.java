@@ -4,7 +4,7 @@ package com.example.manlier.dailypaper.modules.news.presenter;
  * Created by manlier on 2017/5/11.
  */
 
-import com.example.manlier.dailypaper.commons.NewsType;
+import com.example.manlier.dailypaper.contracts.NewsType;
 
 /**
  * 新闻模块控制器
