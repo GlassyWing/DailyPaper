@@ -9,6 +9,7 @@ import com.orhanobut.logger.Logger;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -93,9 +94,14 @@ public class NewsDetailPresenterImplWithObservable
     private void replaceImage(NewsDetailBean detailBean) {
         List<ImgEntity> ref = detailBean.getImg();
         final String[] temp = {detailBean.getBody()};
-        ref.forEach(entity -> {
+//        ref.forEach(new Consumer<ImgEntity>() {
+//            @Override
+//            public void accept(ImgEntity entity) {
+//            }
+//        });
+        for (ImgEntity entity : ref) {
             temp[0] = temp[0].replace(entity.getRef(), createImgTag(entity));
-        });
+        }
         detailBean.setBody(temp[0]);
     }
 

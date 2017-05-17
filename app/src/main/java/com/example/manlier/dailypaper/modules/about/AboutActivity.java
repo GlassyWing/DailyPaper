@@ -25,7 +25,7 @@ public class AboutActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        getWindow().setNavigationBarColor(getResources().getColor(R.color.primary));
+//        getWindow().setNavigationBarColor(getResources().getColor(R.color.primary));
 
     }
 }

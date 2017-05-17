@@ -8,6 +8,7 @@ import com.example.manlier.dailypaper.modules.providers.RetrofitService;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -45,17 +46,17 @@ public class NewsPresenterImplWithObservable
                 .flatMap(new Func1<Map<String, List<NewsBean>>, Observable<List<NewsBean>>>() {
                     @Override
                     public Observable<List<NewsBean>> call(Map<String, List<NewsBean>> stringListMap) {
-                        List<NewsBean> result = new ArrayList<NewsBean>();
-                        stringListMap.get(type.ID).stream()
-                                .filter(NewsPresenterImplWithObservable::isInterest)
-                                .map(bean -> {
-                                    bean.setDocid(bean.getDocid().replace("_special", ""));
-                                    return bean;
-                                })
-                                .sorted((o1, o2) -> o2.getPtime().compareTo(o1.getPtime()))
-                                .forEach(result::add);
-                        ;
-                        return Observable.just(result);
+//                        List<NewsBean> result = new ArrayList<NewsBean>();
+//                        stringListMap.get(type.ID).stream()
+//                                .filter(NewsPresenterImplWithObservable::isInterest)
+//                                .map(bean -> {
+//                                    bean.setDocid(bean.getDocid().replace("_special", ""));
+//                                    return bean;
+//                                })
+//                                .sorted((o1, o2) -> o2.getPtime().compareTo(o1.getPtime()))
+//                                .forEach(result::add);
+//                        ;
+                        return Observable.just(process(stringListMap.get(type.ID)));
                     }
                 })
                 .subscribe(new Observer<List<NewsBean>>() {
@@ -83,7 +84,7 @@ public class NewsPresenterImplWithObservable
 
         // 一旦加载完成，隐藏刷新部件
         newsView.hideRefreshing();
-        list.sort(new Comparator<NewsBean>() {
+        Collections.sort(list, new Comparator<NewsBean>() {
             @Override
             public int compare(NewsBean o1, NewsBean o2) {
                 return o2.getPtime().compareTo(o1.getPtime());
@@ -100,5 +101,22 @@ public class NewsPresenterImplWithObservable
 
     private static boolean isInterest(NewsBean bean) {
         return !bean.getDigest().equals("");
+    }
+
+    private List<NewsBean> process(List<NewsBean> source) {
+        List<NewsBean> result = new ArrayList<>();
+        for (NewsBean bean : source) {
+            if (isInterest(bean)) {
+                bean.setDocid(bean.getDocid().replace("_special", ""));
+                result.add(bean);
+            }
+        }
+        Collections.sort(result,new Comparator<NewsBean>() {
+            @Override
+            public int compare(NewsBean o1, NewsBean o2) {
+                return o2.getPtime().compareTo(o1.getPtime());
+            }
+        });
+        return result;
     }
 }

@@ -1,0 +1,2 @@
+Bad activity command, or no activities match: com.manlier.dailypaper
+Use -h for help.

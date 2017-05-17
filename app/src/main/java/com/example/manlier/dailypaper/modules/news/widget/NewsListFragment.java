@@ -33,6 +33,8 @@ import com.example.manlier.dailypaper.modules.news.view.NewsView;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -143,7 +145,12 @@ public class NewsListFragment extends Fragment
         adapter.setShowFooter(true);
 
         data.addAll(newsBeanList);
-        data.sort((o1, o2) -> o2.getPtime().compareTo(o1.getPtime()));
+        Collections.sort(data, new Comparator<NewsBean>() {
+            @Override
+            public int compare(NewsBean o1, NewsBean o2) {
+                return o2.getPtime().compareTo(o1.getPtime());
+            }
+        });
 
         // 若是首次加载
         if (pageIndex == 0) {
