@@ -1,6 +1,7 @@
 package com.example.manlier.dailypaper.modules.comments.widget;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -70,6 +71,10 @@ public class CommentActivity extends AppCompatActivity
 
     private static final int PAGE_SIZE = 6;
 
+    private boolean isLoading;
+
+    private Handler handler = new Handler();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +86,12 @@ public class CommentActivity extends AppCompatActivity
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         initView();
         data = new ArrayList<>();
@@ -166,7 +177,7 @@ public class CommentActivity extends AppCompatActivity
     @Override
     public void addComments(List<CommentBean> commentBeanList) {
 
-        showLoading();
+        hideLoading();
 
         data.addAll(commentBeanList);
 
@@ -177,7 +188,6 @@ public class CommentActivity extends AppCompatActivity
 
         // 如果没有更多评论，则隐藏脚部
         if (commentBeanList.size() == 0) {
-            hideLoading();
             adapter.notifyDataSetChanged();
             return;
         }
@@ -193,7 +203,7 @@ public class CommentActivity extends AppCompatActivity
     @Override
     public void showLoadResult(String info) {
         if (pageIndex == 0) {hideLoading(); adapter.notifyDataSetChanged();}
-        View view = this.findViewById(R.id.recycle_view_comment_list);
+        View view = this.findViewById(R.id.swipe_refresh_layout_recycler_view);
         Snackbar.make(view, info, Snackbar.LENGTH_SHORT).show();
     }
 
@@ -210,13 +220,32 @@ public class CommentActivity extends AppCompatActivity
                 fab.show();
             }
 
-            // 当滚动停止时，如果已经滚动到了最后一个元素
-            if (newState == RecyclerView.SCROLL_STATE_IDLE
-                    && lastVisibleItem + 1 == adapter.getItemCount()
-                    && adapter.isShowFooter()) {
-                //加载更多
-                Logger.w("loading more data");
-                presenter.loadComments(docId, pageIndex, PAGE_SIZE);
+//            // 当滚动停止时，如果已经滚动到了最后一个元素
+//            if (newState == RecyclerView.SCROLL_STATE_IDLE
+//                    && lastVisibleItem + 1 == adapter.getItemCount()
+//                    && adapter.isShowFooter()) {
+//                //加载更多
+//                Logger.w("loading more data");
+//                presenter.loadComments(docId, pageIndex, PAGE_SIZE);
+//            }
+            if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == adapter.getItemCount()) {
+
+                boolean isRefreshing = swipeRefreshLayout.isRefreshing();
+                if (isRefreshing) {
+                    hideLoading();
+                    return;
+                }
+                isLoading = true;
+                showLoading();
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Logger.w("loading more data");
+                        presenter.loadComments(docId, pageIndex, PAGE_SIZE);
+                        isLoading = false;
+                    }
+                });
+
             }
         }
 
@@ -224,6 +253,7 @@ public class CommentActivity extends AppCompatActivity
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
             lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+
 //                if(dy>0){
 //                    fab.hide();
 //                }else{

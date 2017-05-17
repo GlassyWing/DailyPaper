@@ -10,6 +10,9 @@ public final class DailyPaperContract {
 
     private DailyPaperContract() {}
 
+    /**
+     * 评论表外观
+     */
     public static class CommentEntry implements BaseColumns {
         public static final String TABLE_NAME = "comment";
         public static final String COLUMN_NAME_OBSERVER = "observer";

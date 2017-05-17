@@ -25,7 +25,7 @@
             app:hintEnabled="true"
             app:counterOverflowTextAppearance="@style/TextOverCount"
             app:errorEnabled="true">
-            <EditText
+            <android.support.design.widget.TextInputEditText
                 android:id="@+id/btn_dialog_bottom_sheet_comment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

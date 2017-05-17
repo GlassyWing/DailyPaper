@@ -20,9 +20,9 @@ import java.util.List;
 public class CommentPresenterImpl
         implements CommentPresenter, OnLoadCommentListener {
 
-    private static final int charNumMinLimit = 5;
+    private static final int charNumMinLimit = 0;
 
-    private static final int charNumMaxLimit = 15;
+    private static final int charNumMaxLimit = 150;
 
     private CommentView commentView;
     private CommentModel commentModel;

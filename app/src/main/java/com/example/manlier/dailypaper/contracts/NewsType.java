@@ -10,8 +10,8 @@ package com.example.manlier.dailypaper.contracts;
 public enum NewsType {
 
     TOP(API.TOP_ID, "头条", "headline", true),
-    TECH(API.TECH_ID, "科技"),
     CHOICE(API.CHOICE_ID, "精选"),
+    TECH(API.TECH_ID, "科技"),
     NBA(API.NBA_ID, "NBA"),
     JOKE(API.JOKE_ID, "笑话"),
     MILITARY(API.MILITARY_ID, "军事");

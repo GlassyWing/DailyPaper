@@ -152,7 +152,7 @@ public class NewsDetailActivity extends MySwipeBackActivity
     public void showNewsDetail(String title, String detail) {
         loadSuccess = true;
         tvTitle.setText(title);
-        textView.setHtml(detail, new HtmlHttpImageGetter(textView));
+        textView.setHtml(detail, new HtmlHttpImageGetter(textView, null, true));
     }
 
     @Override

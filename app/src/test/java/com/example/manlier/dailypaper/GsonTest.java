@@ -144,7 +144,7 @@ public class GsonTest {
 
     @Test
     public void parseToNewsBeans() throws Exception {
-        File file = new File("./src/main/java/com/example/manlier/dailypaper/some.json");
+        File file = new File("./src/main/java/com/example/manlier/dailypaper/news.json");
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
         StringBuilder builder = new StringBuilder();
         String temp;

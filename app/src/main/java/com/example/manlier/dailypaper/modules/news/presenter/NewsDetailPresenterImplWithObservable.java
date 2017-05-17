@@ -1,12 +1,16 @@
 package com.example.manlier.dailypaper.modules.news.presenter;
 
+import com.example.manlier.dailypaper.beans.ImgEntity;
 import com.example.manlier.dailypaper.beans.NewsDetailBean;
 import com.example.manlier.dailypaper.listeners.OnLoadNewsDetailListener;
 import com.example.manlier.dailypaper.modules.news.view.NewsDetailView;
 import com.example.manlier.dailypaper.modules.providers.RetrofitService;
 import com.orhanobut.logger.Logger;
 
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import rx.Observable;
 import rx.Observer;
@@ -40,6 +44,13 @@ public class NewsDetailPresenterImplWithObservable
                         return Observable.just(stringNewsDetailBeanMap.get(docId));
                     }
                 })
+                .filter(new Func1<NewsDetailBean, Boolean>() {
+                    @Override
+                    public Boolean call(NewsDetailBean newsDetailBean) {
+                        replaceImage(newsDetailBean);
+                        return true;
+                    }
+                })
                 .subscribe(new Observer<NewsDetailBean>() {
                     @Override
                     public void onCompleted() {
@@ -63,7 +74,7 @@ public class NewsDetailPresenterImplWithObservable
         if (newsDetailBean != null) {
             newsDetailView.showNewsDetail(newsDetailBean.getTitle(), newsDetailBean.getBody());
         } else {
-            Logger.log(Logger.ERROR, getClass().getCanonicalName(),"Load Error", null);
+            Logger.log(Logger.ERROR, getClass().getCanonicalName(), "Load Error", null);
         }
         newsDetailView.hideLoading();
     }
@@ -73,4 +84,32 @@ public class NewsDetailPresenterImplWithObservable
         newsDetailView.showLoadErrorMessage();
         newsDetailView.hideLoading();
     }
+
+    /**
+     * 把响应回的html文本中的<!--IMG0-->标记替换为<img>元素
+     *
+     * @param detailBean 新闻详情实体
+     */
+    private void replaceImage(NewsDetailBean detailBean) {
+        List<ImgEntity> ref = detailBean.getImg();
+        final String[] temp = {detailBean.getBody()};
+        ref.forEach(entity -> {
+            temp[0] = temp[0].replace(entity.getRef(), createImgTag(entity));
+        });
+        detailBean.setBody(temp[0]);
+    }
+
+    /**
+     * 创建<img>元素
+     *
+     * @param img image 实体
+     * @return 创建好的元素
+     */
+    private String createImgTag(ImgEntity img) {
+        return "<center><img " +
+                " alt='" + img.getAlt() + "'" +
+                " src='" + img.getSrc() + "'" +
+                "/></center>";
+    }
+
 }
