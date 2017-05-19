@@ -22,6 +22,7 @@
 ## 程序架构
 
   1. 改程序采用Retrofit + Rxjava + okhttp3 获取网络数据
+  
   2. 设计模式采用 MVP 模式
   
 ## 参考
