@@ -22,10 +22,12 @@
 
 ## 程序架构
 
-  1. 改程序采用Retrofit + Rxjava + okhttp3 获取网络数据
+  1. 该程序采用Retrofit + Rxjava + okhttp3 获取网络数据
   
   2. 设计模式采用 MVP 模式
   
 ## 参考
 
-  -  https://github.com/liuling07/SimpleNews
+  -  https://github.com/liuling07/SimpleNews 新闻客户端的设计
+  
+  -  https://github.com/Eajy/MaterialDesignDemo Material Desgin 设计
