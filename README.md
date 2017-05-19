@@ -28,6 +28,6 @@
   
 ## 参考
 
-  -  https://github.com/liuling07/SimpleNews 新闻客户端的设计
+  1.  https://github.com/liuling07/SimpleNews 新闻客户端的设计
   
-  -  https://github.com/Eajy/MaterialDesignDemo Material Desgin 设计
+  2. https://github.com/Eajy/MaterialDesignDemo Material Desgin 设计
