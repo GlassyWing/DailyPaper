@@ -3,18 +3,18 @@
 
 ## 程序运行时的截图
 
-### 概览
+  1. 概览
 
-![image](https://github.com/GlassyWing/DailyPaper/blob/dev/screenshot/overview.png)  
+<img src="https://github.com/GlassyWing/DailyPaper/blob/dev/screenshot/overview.png" width="320">
 
-### 新闻列表
+  2. 新闻列表
 
-![image](https://github.com/GlassyWing/DailyPaper/blob/dev/screenshot/news_list.png)  
+<img src="https://github.com/GlassyWing/DailyPaper/blob/dev/screenshot/news_list.png" width="320">
 
-### 新闻详情
+  3. 新闻详情
 
-![image](https://github.com/GlassyWing/DailyPaper/blob/dev/screenshot/news_detail.png)  
+<img src="https://github.com/GlassyWing/DailyPaper/blob/dev/screenshot/news_detail.png" width="320">
 
-### 新闻评论
+  4. 新闻评论
 
-![image](https://github.com/GlassyWing/DailyPaper/blob/dev/screenshot/comments.png)  
+<img src="https://github.com/GlassyWing/DailyPaper/blob/dev/screenshot/comments.png" width="320">
