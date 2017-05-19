@@ -55,7 +55,7 @@ public class NewsDetailActivity extends MySwipeBackActivity
 
     // 底部浮动按钮
     private FloatingActionButton fabBottom;
-    
+
     // 顶部评论浮动按钮
     private FloatingActionButton fabComment;
 
@@ -66,7 +66,7 @@ public class NewsDetailActivity extends MySwipeBackActivity
     private SwipeBackLayout swipeBackLayout;
 
     private NewsDetailPresenter newsDetailPresenter;
-    
+
     private boolean loadSuccess;
 
     @Override
@@ -100,8 +100,10 @@ public class NewsDetailActivity extends MySwipeBackActivity
         fabComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!loadSuccess)
+                if (!loadSuccess) {
                     showInfo("请等待加载完成");
+                    return;
+                }
                 switchToComment();
             }
         });
@@ -133,11 +135,17 @@ public class NewsDetailActivity extends MySwipeBackActivity
         newsDetailPresenter.loadNewsDetail(newsBean.getDocid());
     }
 
+    /**
+     * 当从评论Activity返回时恢复状态
+     *
+     * @param savedInstanceState 状态
+     * @return
+     */
     private NewsBean fetchNewsBean(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             return (NewsBean) getIntent().getSerializableExtra("news");
         } else {
-            return (NewsBean)  savedInstanceState.getSerializable("news");
+            return (NewsBean) savedInstanceState.getSerializable("news");
         }
     }
 

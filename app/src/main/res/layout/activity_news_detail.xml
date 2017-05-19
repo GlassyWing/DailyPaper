@@ -65,6 +65,7 @@
         android:id="@+id/nsvDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -77,10 +78,7 @@
                 android:id="@+id/progress"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
-                android:layout_marginTop="1dp"
-                android:layout_height="5dp"
-                android:background="@color/primary_dark"
-                android:foreground="@color/primary_light"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:indeterminate="true"/>
 
