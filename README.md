@@ -18,3 +18,12 @@
   4. 新闻评论
 
 <img src="https://github.com/GlassyWing/DailyPaper/blob/dev/screenshot/comments.png" width="320">
+
+## 程序架构
+
+  1. 改程序采用Retrofit + Rxjava + okhttp3 获取网络数据
+  2. 设计模式采用 MVP 模式
+  
+## 参考
+
+  - https://github.com/liuling07/SimpleNews
