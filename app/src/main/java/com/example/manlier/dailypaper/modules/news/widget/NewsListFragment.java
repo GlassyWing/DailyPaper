@@ -115,7 +115,7 @@ public class NewsListFragment extends Fragment
 
     public void changeFABAction(Activity activity) {
         FloatingActionButton fab = (FloatingActionButton) activity.findViewById(R.id.fab);
-        fab.setOnClickListener(v -> recyclerView.smoothScrollToPosition(-10));
+        fab.setOnClickListener(v -> layoutManager.scrollToPositionWithOffset(0, 0));
     }
 
     @Override
