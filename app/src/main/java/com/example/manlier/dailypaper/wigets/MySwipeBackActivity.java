@@ -14,7 +14,7 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivityHelper;
  */
 
 /**
- * 由于官方的SwipeBackActivity继承自FragmentActivity
+ * 由于官方默认的SwipeBackActivity继承自FragmentActivity
  * 而要使用Toolbal来实现Activity的应用栏必须继承自AppCompatActivity
  * 因此提供一个自己的SwipeBackActivity的实现
  */

@@ -14,9 +14,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:selectableItemBackgroundBorderless"
-        android:clickable="true"
-        tools:targetApi="lollipop">
+        android:clickable="true">
 
         <ImageView
             android:id="@+id/img_card_about_1"

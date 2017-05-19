@@ -35,7 +35,7 @@ public class NewsDetailBean {
     /**
      * 图片列表
      */
-    private List<String> imgList;
+    private List<ImgEntity> img;
 
     public String getDocid() {
         return docid;
@@ -85,12 +85,12 @@ public class NewsDetailBean {
         this.cover = cover;
     }
 
-    public List<String> getImgList() {
-        return imgList;
+    public List<ImgEntity> getImg() {
+        return img;
     }
 
-    public void setImgList(List<String> imgList) {
-        this.imgList = imgList;
+    public void setImg(List<ImgEntity> img) {
+        this.img = img;
     }
 
     @Override
@@ -102,7 +102,7 @@ public class NewsDetailBean {
                 ", body='" + body + '\'' +
                 ", ptime='" + ptime + '\'' +
                 ", cover='" + cover + '\'' +
-                ", imgList=" + imgList +
+                ", img=" + img +
                 '}';
     }
 }

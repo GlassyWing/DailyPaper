@@ -20,7 +20,7 @@
     <dimen name="news_image_width">86dp</dimen>
     <dimen name="news_image_height">60dp</dimen>
 
-    <dimen name="detail_padding_top">20dp</dimen>
+    <dimen name="detail_padding_top">30dp</dimen>
     <dimen name="detail_padding_bottom">50dp</dimen>
     <dimen name="detail_padding_left">15dp</dimen>
     <dimen name="detail_padding_right">15dp</dimen>
@@ -33,4 +33,6 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="text_margin_small">8dp</dimen>
     <dimen name="text_margin_very_small">4dp</dimen>
+
+    <dimen name="zero_horizontal_margin">0dp</dimen>
 </resources>

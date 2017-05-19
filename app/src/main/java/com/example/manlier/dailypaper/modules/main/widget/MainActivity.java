@@ -1,5 +1,6 @@
 package com.example.manlier.dailypaper.modules.main.widget;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -19,6 +20,7 @@ import com.example.manlier.dailypaper.modules.main.presenter.MainPresenterImpl;
 import com.example.manlier.dailypaper.modules.main.view.MainView;
 import com.example.manlier.dailypaper.modules.news.widget.NewsDetailActivity;
 import com.example.manlier.dailypaper.modules.news.widget.NewsFragment;
+import com.example.manlier.dailypaper.modules.providers.RetrofitService;
 
 public class MainActivity extends AppCompatActivity implements
         MainView {
@@ -30,12 +32,16 @@ public class MainActivity extends AppCompatActivity implements
 
     private MainPresenter mainPresenter;   // 主视图控制器
 
+    private static Context context;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initView();
+        context = getApplicationContext();
+        initView();             // 初始化主视图
+        RetrofitService.init(); // 初始化网络服务
         mainPresenter = new MainPresenterImpl(this);
         switch2News();
     }
@@ -105,5 +111,9 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public static Context getContext() {
+        return context;
     }
 }

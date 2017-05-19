@@ -23,16 +23,18 @@ import android.view.ViewGroup;
 
 import com.example.manlier.dailypaper.R;
 import com.example.manlier.dailypaper.beans.NewsBean;
-import com.example.manlier.dailypaper.commons.API;
-import com.example.manlier.dailypaper.commons.NewsType;
-import com.example.manlier.dailypaper.modules.news.adapter.NewsRecyclerViewAdapter;
-import com.example.manlier.dailypaper.modules.news.listeners.OnItemClickListener;
+import com.example.manlier.dailypaper.contracts.API;
+import com.example.manlier.dailypaper.contracts.NewsType;
+import com.example.manlier.dailypaper.adapter.NewsRecyclerViewAdapter;
+import com.example.manlier.dailypaper.listeners.OnItemClickListener;
 import com.example.manlier.dailypaper.modules.news.presenter.NewsPresenter;
-import com.example.manlier.dailypaper.modules.news.presenter.NewsPresenterImpl;
+import com.example.manlier.dailypaper.modules.news.presenter.NewsPresenterImplWithObservable;
 import com.example.manlier.dailypaper.modules.news.view.NewsView;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -67,7 +69,7 @@ public class NewsListFragment extends Fragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        newsPresenter = new NewsPresenterImpl(this);
+        newsPresenter = new NewsPresenterImplWithObservable(this);
         type = (NewsType) getArguments().getSerializable("type");
         data = new ArrayList<>();
     }
@@ -113,7 +115,7 @@ public class NewsListFragment extends Fragment
 
     public void changeFABAction(Activity activity) {
         FloatingActionButton fab = (FloatingActionButton) activity.findViewById(R.id.fab);
-        fab.setOnClickListener(v -> recyclerView.smoothScrollToPosition(-10));
+        fab.setOnClickListener(v -> layoutManager.scrollToPositionWithOffset(0, 0));
     }
 
     @Override
@@ -143,7 +145,12 @@ public class NewsListFragment extends Fragment
         adapter.setShowFooter(true);
 
         data.addAll(newsBeanList);
-        data.sort((o1, o2) -> o2.getPtime().compareTo(o1.getPtime()));
+        Collections.sort(data, new Comparator<NewsBean>() {
+            @Override
+            public int compare(NewsBean o1, NewsBean o2) {
+                return o2.getPtime().compareTo(o1.getPtime());
+            }
+        });
 
         // 若是首次加载
         if (pageIndex == 0) {

@@ -13,4 +13,10 @@
 
     <string name="load_fail">加载数据失败!</string>
     <string name="title_activity_news_detail">NewsDetailActivity</string>
+
+    <string name="dialog_ok">确认</string>
+    <string name="dialog_cancel">取消</string>
+    <string name="dialog_title">请输入评论</string>
+
+    <string name="invalid_comment">你输入的评语不能超过指定字符数目</string>
 </resources>

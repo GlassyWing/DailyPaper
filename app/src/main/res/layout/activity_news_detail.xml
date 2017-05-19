@@ -8,6 +8,7 @@
 
     <!--应用条-->
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_scrolling"
         android:layout_width="match_parent"
         android:layout_height="256dp"
         android:fitsSystemWindows="true"
@@ -49,11 +50,22 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <!--评论浮动按钮-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@mipmap/comment"
+        app:layout_anchor="@id/app_bar_scrolling"
+        app:layout_anchorGravity="bottom|end" />
+
     <!--嵌入式可滚动视图，显示新闻详情-->
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nsvDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -66,9 +78,7 @@
                 android:id="@+id/progress"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
-                android:layout_marginTop="1dp"
-                android:layout_height="5dp"
-                android:background="@color/primary_light"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:indeterminate="true"/>
 
@@ -102,7 +112,7 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <!--浮动按钮-->
+    <!--底部浮动按钮-->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         app:fabSize="normal"
