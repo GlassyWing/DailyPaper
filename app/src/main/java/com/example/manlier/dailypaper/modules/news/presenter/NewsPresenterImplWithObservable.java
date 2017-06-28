@@ -10,6 +10,7 @@ import com.orhanobut.logger.Logger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -104,7 +105,7 @@ public class NewsPresenterImplWithObservable
     }
 
     private List<NewsBean> process(List<NewsBean> source) {
-        List<NewsBean> result = new ArrayList<>();
+        List<NewsBean> result = new LinkedList<>();
         for (NewsBean bean : source) {
             if (isInterest(bean)) {
                 bean.setDocid(bean.getDocid().replace("_special", ""));

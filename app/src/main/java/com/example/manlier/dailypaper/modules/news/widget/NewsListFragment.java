@@ -35,6 +35,7 @@ import com.orhanobut.logger.Logger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -71,7 +72,7 @@ public class NewsListFragment extends Fragment
         super.onCreate(savedInstanceState);
         newsPresenter = new NewsPresenterImplWithObservable(this);
         type = (NewsType) getArguments().getSerializable("type");
-        data = new ArrayList<>();
+        data = new LinkedList<>();
     }
 
     @Nullable
@@ -144,7 +145,7 @@ public class NewsListFragment extends Fragment
 
         adapter.setShowFooter(true);
 
-        data.addAll(newsBeanList);
+        data.addAll( newsBeanList);
         Collections.sort(data, new Comparator<NewsBean>() {
             @Override
             public int compare(NewsBean o1, NewsBean o2) {
