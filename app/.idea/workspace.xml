@@ -10,14 +10,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4c6f545-db2d-4a3d-9670-2603f9b90dec" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/example/manlier/dailypaper/utils/JsonUtils.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/example/manlier/dailypaper/utils/LogUtils.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/manlier/dailypaper/detail.json" afterPath="$PROJECT_DIR$/src/main/java/com/example/manlier/dailypaper/detail.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/manlier/dailypaper/modules/news/presenter/NewsPresenterImplWithObservable.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/manlier/dailypaper/modules/news/presenter/NewsPresenterImplWithObservable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/manlier/dailypaper/modules/news/widget/NewsListFragment.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/manlier/dailypaper/modules/news/widget/NewsListFragment.java" />
-    </list>
+    <list default="true" id="c4c6f545-db2d-4a3d-9670-2603f9b90dec" name="Default" comment="" />
     <ignored path="app.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
