@@ -19,4 +19,11 @@
     <string name="dialog_title">请输入评论</string>
 
     <string name="invalid_comment">你输入的评语不能超过指定字符数目</string>
+
+    <string name="about_card2_title">开发人员</string>
+    <string name="leader">邓嘉新</string>
+    <string name="member01">王福超</string>
+    <string name="member02">马亮</string>
+    <string name="member03">郭鸿恩</string>
+    <string name="member04">黄世贤</string>
 </resources>
